@@ -2,12 +2,14 @@ import React from 'react';
 import { Input, Button, Typography, CardBody } from "@material-tailwind/react";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { putContact } from '../services/contactServices';
+import toast from 'react-hot-toast';
 
 const EditContact = ({ contact, onEditContact, onCancel }) => {
   const formik = useFormik({
     initialValues: {
       name: contact.name,
-      mobileNumber: contact.mobileNumber,
+      mobileNumber: contact.phone,
       email: contact.email,
     },
     validationSchema: Yup.object().shape({
@@ -15,8 +17,32 @@ const EditContact = ({ contact, onEditContact, onCancel }) => {
       mobileNumber: Yup.string().matches(/^\d{10}$/, 'Mobile number must be 10 digits').required('Mobile number is required'),
       email: Yup.string().email('Invalid email').required('Email is required'),
     }),
-    onSubmit: (values) => {
-      onEditContact({ ...contact, ...values });
+    onSubmit: async (values) => {
+        const id = contact._id;
+        const name = values.name.trim();
+        const phone = values.mobileNumber.trim();
+        const email = values.email.trim();
+
+        try {
+            await toast.promise(
+                putContact({id, name, phone, email }),
+                {
+                    loading: 'Loading...',
+                    success: (response) => {
+                        const data = response.data;
+                        console.log(data);
+                        onEditContact();
+                        return 'Contact updated successfully.';
+
+                    },
+                    error: (error) => {
+                        return `${error.response.data.message || error.message}`;
+                    },
+                }
+            );
+        } catch (error) {
+            console.log(error);
+        }
     },
   });
 

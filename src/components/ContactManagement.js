@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Card, Typography } from "@material-tailwind/react";
 import AddContact from './AddContact';
 import EditContact from './EditContact';
 import DeleteContact from './DeleteContact';
+import { getContacts } from '../services/contactServices';
 
 const ContactManagement = () => {
     const [contacts, setContacts] = useState([]);
@@ -11,21 +12,32 @@ const ContactManagement = () => {
     const [showEditForm, setShowEditForm] = useState(false);
     const [showDeleteForm, setShowDeleteForm] = useState(false);
 
-    const addContact = (newContact) => {
-        setContacts([...contacts, { ...newContact, id: Date.now() }]);
+    const fetchContacts = async () => {
+        try {
+            const response = await getContacts();
+            setContacts(response.data.message);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        fetchContacts();
+    }, []);
+
+    const handleAddContact = async (newContact) => {
+        await fetchContacts(); // Fetch updated contact list after adding
         setShowAddForm(false);
     };
 
-    const editContact = (updatedContact) => {
-        setContacts(contacts.map(contact =>
-            contact.id === updatedContact.id ? updatedContact : contact
-        ));
+    const handleEditContact = async (updatedContact) => {
+        await fetchContacts(); // Fetch updated contact list after editing
         setShowEditForm(false);
         setSelectedContact(null);
     };
 
-    const deleteContact = (id) => {
-        setContacts(contacts.filter(contact => contact.id !== id));
+    const handleDeleteContact = async (id) => {
+        await fetchContacts(); // Fetch updated contact list after deleting
         setShowDeleteForm(false);
         setSelectedContact(null);
     };
@@ -39,13 +51,13 @@ const ContactManagement = () => {
             </div>
 
             {showAddForm && (
-                <AddContact onAddContact={addContact} onCancel={() => setShowAddForm(false)} />
+                <AddContact onAddContact={handleAddContact} onCancel={() => setShowAddForm(false)} />
             )}
 
             {showEditForm && selectedContact && (
                 <EditContact
                     contact={selectedContact}
-                    onEditContact={editContact}
+                    onEditContact={handleEditContact}
                     onCancel={() => setShowEditForm(false)}
                 />
             )}
@@ -53,12 +65,12 @@ const ContactManagement = () => {
             {showDeleteForm && selectedContact && (
                 <DeleteContact
                     contact={selectedContact}
-                    onDeleteContact={deleteContact}
+                    onDeleteContact={handleDeleteContact}
                     onCancel={() => setShowDeleteForm(false)}
                 />
             )}
 
-            <Card className="overflow-scroll h-full w-full" style={{marginTop:"3rem"}}>
+            <Card className="overflow-scroll h-full w-full" style={{ marginTop: "3rem" }}>
                 <table className="w-full min-w-max table-auto text-left">
                     <thead>
                         <tr>
@@ -94,7 +106,7 @@ const ContactManagement = () => {
                                 </td>
                                 <td className="p-4">
                                     <Typography variant="small" color="blue-gray" className="font-normal">
-                                        {contact.mobileNumber}
+                                        {contact.phone}
                                     </Typography>
                                 </td>
                                 <td className="p-4">
