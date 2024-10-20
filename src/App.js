@@ -1,12 +1,14 @@
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Auth from './components/Auth';
+import ContactDashboard from './components/ContactDashboard';
 
 function App() {
   return (
-    <h1 class="text-3xl font-bold underline">
-      Hello world!
-      <Auth />
-    </h1>
+    <Routes>
+      <Route path="/*" element={<Auth />} />
+      <Route path="/dashboard" element={<ContactDashboard />}/>
+    </Routes>
   );
 }
 
