@@ -1,6 +1,6 @@
 # Contact Frontend
 
-## Description## Features
+## Features
 - Add, Edit, and Delete Contacts
 - Responsive Design
 - Search and Filter Contacts
