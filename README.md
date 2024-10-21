@@ -42,3 +42,8 @@ Instructions on how to use your project after installation:
    ```
    (or `yarn start` if using Yarn)
 2. Open your browser and navigate to `http://localhost:3000`
+
+
+login by using this creditatial
+email: admin@gmail.com
+password: 123456789
