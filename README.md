@@ -42,15 +42,3 @@ Instructions on how to use your project after installation:
    ```
    (or `yarn start` if using Yarn)
 2. Open your browser and navigate to `http://localhost:3000`
-
-## Features
-List the key features of your project.
-
-## Contributing
-Instructions for how other developers can contribute to your project.
-
-## License
-Specify the license under which your project is distributed.
-
-## Contact
-Your contact information for users who have questions or want to reach out.
