@@ -3,8 +3,7 @@ import toast from "react-hot-toast";
 
 // Axios Instance
 const instance = axios.create({
-  // baseURL: import.meta.env.NODE_APP_SERVER_URL
-  baseURL: "http://localhost:9091/"
+  baseURL: "https://contact-backend-or4g.onrender.com"
 });
 
 // Request interceptor

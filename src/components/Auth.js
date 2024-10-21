@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React, { useEffect } from 'react'
 import {
   Input,
   Button,
@@ -16,12 +16,12 @@ const Auth = () => {
 
   const naviagte = useNavigate();
 
-  useEffect(()=>{
+  useEffect(() => {
     const token = localStorage.getItem("token");
-    if(token){
+    if (token) {
       naviagte('/dashboard');
     }
-  },[])
+  }, [])
 
   const formik = useFormik({
     initialValues: {
@@ -46,10 +46,10 @@ const Auth = () => {
               const { accesssToken } = response.data;
               localStorage.setItem('token', accesssToken);
 
-              if(accesssToken){
+              if (accesssToken) {
                 naviagte('/dashboard');
               }
-              
+
               return 'Logged in successfully.';
             },
             error: (error) => {
@@ -78,39 +78,44 @@ const Auth = () => {
               <Typography variant="h6" color="blue-gray" className="-mb-3">
                 Your Email
               </Typography>
-              <Input
-                size="lg"
-                placeholder="name@mail.com"
-                className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }}{...formik.getFieldProps('email')}
-              />
-              {formik.touched.email && formik.errors.email ? (
-                <div className="text-red-900 mt-1">{formik.errors.email}</div>
-              ) : null}
+              <div>
+
+                <Input
+                  size="lg"
+                  placeholder="name@mail.com"
+                  className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                  labelProps={{
+                    className: "before:content-none after:content-none",
+                  }}{...formik.getFieldProps('email')}
+                />
+                {formik.touched.email && formik.errors.email ? (
+                  <div className="text-red-900">{formik.errors.email}</div>
+                ) : null}
+              </div>
 
               <Typography variant="h6" color="blue-gray" className="-mb-3">
                 Password
               </Typography>
-              <Input
-                type="password"
-                size="lg"
-                placeholder="********"
-                className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }}
-                {...formik.getFieldProps('password')}
-              />
+              <div>
+                <Input
+                  type="password"
+                  size="lg"
+                  placeholder="********"
+                  className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                  labelProps={{
+                    className: "before:content-none after:content-none",
+                  }}
+                  {...formik.getFieldProps('password')}
+                />
 
-              {formik.touched.password && formik.errors.password ? (
-                <div className="text-red-900 mt-1">{formik.errors.password}</div>
-              ) : null}
+                {formik.touched.password && formik.errors.password ? (
+                  <div className="text-red-900 mt-1">{formik.errors.password}</div>
+                ) : null}
+              </div>
 
             </div>
-            <div className="text-center" style={{marginTop:"1rem"}}>
-              <Button type="submit">
+            <div className="text-center" style={{ marginTop: "1rem" }}>
+              <Button type="submit" color='blue'>
                 Sign In
               </Button>
             </div>

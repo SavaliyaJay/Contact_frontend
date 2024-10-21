@@ -1,76 +1,7 @@
-// // import React, { useState } from 'react';
-// // import { postFile } from '../services/fileServices';
-
-// // const ImportContacts = () => {
-// //     const [message, setMessage] = useState('');
-
-// //     const handleFileUpload = async (event) => {
-// //       const file = event.target.files[0];
-// //       const reader = new FileReader();
-  
-// //       reader.onload = async (e) => {
-// //         const content = e.target.result;
-  
-// //         try {
-// //           const response = await postFile(content);
-// //           setMessage(response.data.message);
-// //         } catch (error) {
-// //           setMessage('Error uploading file');
-// //         }
-// //       };
-  
-// //       reader.readAsText(file);
-// //     };
-// //   return (
-// //     <div>
-// //       <h2>Import VCF File</h2>
-// //       <input type="file" onChange={handleFileUpload} accept=".vcf" />
-// //       {message && <p>{message}</p>}
-// //     </div>
-// //   );
-// // };
-
-// // export default ImportContacts;
-
-
-// import React, { useState } from 'react';
-// import { postFile } from '../services/fileServices';
-
-// const ImportContacts = () => {
-//     const [message, setMessage] = useState('');
-
-//     const handleFileUpload = async (event) => {
-//       const file = event.target.files[0];
-//       const reader = new FileReader();
-  
-//       reader.onload = async (e) => {
-//         const content = e.target.result;
-  
-//         try {
-//           const response = await postFile(content);
-//           setMessage(response.data.message);
-//         } catch (error) {
-//           setMessage('Error uploading file: ' + error.message);
-//         }
-//       };
-  
-//       reader.readAsText(file);
-//     };
-
-//     return (
-//         <div>
-//             <h2>Import VCF File</h2>
-//             <input type="file" onChange={handleFileUpload} accept=".vcf" />
-//             {message && <p>{message}</p>}
-//         </div>
-//     );
-// };
-
-// export default ImportContacts;
-
 import React, { useState } from 'react';
 import { postFile } from '../services/fileServices';
 import toast from 'react-hot-toast';
+import { Button } from '@material-tailwind/react';
 
 const ImportContacts = () => {
     const [contacts, setContacts] = useState([]);
@@ -144,10 +75,9 @@ const ImportContacts = () => {
     return (
         <div>
             <input type="file" accept=".vcf" onChange={handleFileChange} />
-            {vcfContent && <pre>{vcfContent}</pre>}
-            <button onClick={printContacts} disabled={contacts.length === 0}>
-                Print Contacts to Console
-            </button>
+            <Button color="blue" onClick={printContacts} disabled={contacts.length === 0}>
+                Submit
+            </Button>
         </div>
     );
 };

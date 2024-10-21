@@ -11,6 +11,7 @@ const ContactManagement = () => {
     const [showAddForm, setShowAddForm] = useState(false);
     const [showEditForm, setShowEditForm] = useState(false);
     const [showDeleteForm, setShowDeleteForm] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
 
     const fetchContacts = async () => {
         try {
@@ -26,28 +27,41 @@ const ContactManagement = () => {
     }, []);
 
     const handleAddContact = async (newContact) => {
-        await fetchContacts(); // Fetch updated contact list after adding
+        await fetchContacts();
         setShowAddForm(false);
     };
 
     const handleEditContact = async (updatedContact) => {
-        await fetchContacts(); // Fetch updated contact list after editing
+        await fetchContacts();
         setShowEditForm(false);
         setSelectedContact(null);
     };
 
     const handleDeleteContact = async (id) => {
-        await fetchContacts(); // Fetch updated contact list after deleting
+        await fetchContacts();
         setShowDeleteForm(false);
         setSelectedContact(null);
     };
 
+    const filteredContacts = contacts.filter(contact =>
+        contact.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        contact.phone.includes(searchTerm) || 
+        contact.email.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
         <div className="container mx-auto p-4">
-            <div className="mb-4">
+            <div className="mb-4 flex items-center justify-around">
                 <Button color="blue" onClick={() => setShowAddForm(true)}>
                     Add Contact
                 </Button>
+                <input 
+                    type="text" 
+                    placeholder="Search..." 
+                    value={searchTerm} 
+                    onChange={(e) => setSearchTerm(e.target.value)} 
+                    className="border border-gray-300 rounded p-2"
+                />
             </div>
 
             {showAddForm && (
@@ -97,7 +111,7 @@ const ContactManagement = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {contacts.map((contact) => (
+                        {filteredContacts.map((contact) => (
                             <tr key={contact.id}>
                                 <td className="p-4">
                                     <Typography variant="small" color="blue-gray" className="font-normal">
