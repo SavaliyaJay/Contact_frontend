@@ -44,6 +44,13 @@ Instructions on how to use your project after installation:
 2. Open your browser and navigate to `http://localhost:3000`
 
 
+
+## Contact
+Jay Savaliya - work.jaysavaliya@gmail.com
+
+Project Link: [https://contact-frontend-three.vercel.app/](https://contact-frontend-three.vercel.app/)
+
 login by using this creditatial
+
 email: admin@gmail.com
 password: 123456789
