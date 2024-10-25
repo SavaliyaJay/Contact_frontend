@@ -1,4 +1,4 @@
-ji# Contact Frontend
+# Contact Frontend
 
 ## Features
 - Add, Edit, and Delete Contacts
